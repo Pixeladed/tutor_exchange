@@ -31,6 +31,26 @@ connection.connect (function(error) {
   }
 });
 
+function handleDisconnect() {
+  connection = mysql.createConnection(config.mysqlSettings);
+  connection.connect (function(error) {
+    if (!!error) {
+      console.log(error);
+    } else {
+      console.log('Connected to mysql database');
+    }
+  });
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                     
+      throw err;                                  
+    }
+  });
+}
+handleDisconnect();
+
 //from http://stackoverflow.com/questions/39489229/pass-variable-to-html-template-in-nodemailer
 var readHTMLFile = function(path, callback) {
   fs.readFile(path, {encoding: 'utf-8'}, function(err, html) {
