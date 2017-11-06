@@ -28,7 +28,7 @@ def generate(username, password):
 	lines.append("    port: '3306',")
 	lines.append("    user: '" + username + "',")
 	lines.append("    password: '" + password + "',")
-	lines.append("    database: 'tutorExchangeDB',")
+	lines.append("    database: 'tutorexchange',")
 	lines.append("  },")
 	lines.append("")
 	lines.append("  server: {")
