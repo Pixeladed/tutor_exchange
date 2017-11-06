@@ -24,7 +24,7 @@ def generate(username, password):
 	lines.append("  secret: '" + jwt_key + "',")
 	lines.append("")
 	lines.append("  mysqlSettings: {")
-	lines.append("    host: '127.0.0.1',")
+	lines.append("    host: 'localhost',")
 	lines.append("    port: '3306',")
 	lines.append("    user: '" + username + "',")
 	lines.append("    password: '" + password + "',")
