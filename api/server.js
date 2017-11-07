@@ -69,7 +69,6 @@ app.use('/auth/register', function(req, res) {
     passwordSalt: passhashsalt.salt,  //<- Need to store salt with password.  Salt only protects against rainbow table attacks.
   };
 
-pool.getConnection(function(err, connection) {
   connection.query('SELECT * FROM user WHERE userID = ?', post.userID, function(err, rows, fields) {
     if (err) {
       console.log(err);
@@ -1365,7 +1364,6 @@ function clearResetToken(userID) {
     });
 }
 
-});
 
 /** [from https://code.ciphertrick.com/2016/01/18/salt-hash-passwords-using-nodejs-crypto/]
  * generates random string of characters i.e salt
