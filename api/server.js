@@ -23,13 +23,6 @@ app.set('secret', config.secret);
     $ = cheerio.load(fs.readFile(__dirname+'/app/templates/verifyEmail.html'));*/
 
 var connection = mysql.createPool(config.mysqlSettings);
-connection.connect (function(error) {
-  if (!!error) {
-    console.log(error);
-  } else {
-    console.log('Connected to mysql database');
-  }
-});
 
 //from http://stackoverflow.com/questions/39489229/pass-variable-to-html-template-in-nodemailer
 var readHTMLFile = function(path, callback) {
