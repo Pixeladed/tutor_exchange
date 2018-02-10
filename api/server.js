@@ -1240,28 +1240,30 @@ function formatLanguageData(userID, obj) {
  * @param {string} queryB - Second Query to be executed.
  */
 function mysqlTransaction(queryA, queryB) {
-  return connection.beginTransaction(function(err) {
-    if (err) { return err; }
-    connection.query(queryA, function(error, rows, fields) {
-      if (error) {
-        return connection.rollback(function() {
-          console.log(error);
-        });
-      }
-
-      connection.query(queryB, function(error, results, fields) {
+  connection.getConnection(function(err, conn) {
+    return conn.beginTransaction(function(err) {
+      if (err) { return err; }
+      conn.query(queryA, function(error, rows, fields) {
         if (error) {
-          return connection.rollback(function() {
+          return conn.rollback(function() {
             console.log(error);
           });
         }
-        connection.commit(function(error) {
+
+        conn.query(queryB, function(error, results, fields) {
           if (error) {
-            return connection.rollback(function() {
+            return conn.rollback(function() {
               console.log(error);
             });
           }
-          return {success: true, message: 'Transaction Processed Successfully'};
+          conn.commit(function(error) {
+            if (error) {
+              return conn.rollback(function() {
+                console.log(error);
+              });
+            }
+            return {success: true, message: 'Transaction Processed Successfully'};
+          });
         });
       });
     });
