@@ -275,7 +275,6 @@ max-width: 100%;
 display:block; 
 height: auto;
 }
-/*.container.logo > img {
-    vertical-align: top !important;
-}*/
-
+.container.logo > img, .logo {
+    object-fit: contain;
+}
